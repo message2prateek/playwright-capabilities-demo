@@ -134,9 +134,72 @@ Run specific shards using:
 ```bash
 npx playwright test --project=shard-1
 ```
+## Retry failed tests
+
+### 1. Global config
+You can define the number of retries globally in your `playwright.config.ts` file:
+
+```ts
+// playwright.config.ts
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  retries: 2, // Number of retries for failed tests
+  use: {
+    headless: true,
+  },
+});
+```
+`retries`: Sets the number of retries for all tests. In this example, failed tests will retry up to 2 times.
+
+### 2. Set Retries for Specific Tests
+If you want to override retries for a specific test or group of tests, use the `test` or `test.describe` configuration:
+
+```ts
+import { test } from '@playwright/test';
+
+test('This test retries up to 3 times', async ({ page }) => {
+  test.info().config({ retries: 3 }); // Set retries dynamically
+  await page.goto('https://example.com');
+  // Test logic...
+});
+```
+Or for a group of tests:
+
+```ts
+test.describe('Group with custom retries', () => {
+  test.describe.configure({ retries: 1 }); // Retry once for this group
+  test('Test in this group', async ({ page }) => {
+    await page.goto('https://example.com');
+  });
+});
+```
+
+### 3. Run with Retries from the Command Line
+You can override the retries configuration from the command line when running tests:
+
+```bash
+npx playwright test --retries=3
+```
+This will apply the specified number of retries to all tests for this run.
+
+### 4. Debugging Flaky Tests with Retries
+Example Configuration for Retries with Debug Artifacts
+
+```ts
+export default defineConfig({
+  retries: 2,
+  use: {
+    video: 'on-first-retry', // Video only on retry
+    trace: 'on-first-retry', // Trace only on retry
+    screenshot: 'only-on-failure', // Screenshot for failures
+  },
+});
+```
+
 ## Topics to cover
 - ~~Parallel run~~
-- codegen
+- ~~codegen~~
 - Pipeline intergration
 - Multiple tabs
 - POM
@@ -146,10 +209,10 @@ npx playwright test --project=shard-1
 - Performance testing
 - Mobile Web
 - Parameterised tests
-- Retries
+- ~~Retries~~
 - Sharing of auths
 - Mocking and changing responses (Network)
 - Visual comparision
-- Video
+- ``Video``
 - retry failed tests
 - ~~cross browser testing~~
