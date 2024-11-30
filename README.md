@@ -1,4 +1,4 @@
-# Calability demo for Playwright
+# Playwright Capabilities Demo 🎭
 
 ## How to run the tests
 
