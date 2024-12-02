@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Can record video within a test', async({page})=>{
+test('Can record video within a test', async ({ page }) => {
     await page.goto('https://ecommerce-playground.lambdatest.io/index.php?route=common/home');
     await page.getByRole('button', { name: ' My account' }).click();
     await page.getByPlaceholder('E-Mail Address').click();

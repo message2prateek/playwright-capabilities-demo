@@ -204,7 +204,7 @@ export default defineConfig({
 - Multiple tabs
 - POM
 - Fixtures
-- API testing
+- ~~API testing~~
 - Accessibility testing
 - Performance testing
 - Mobile Web
@@ -212,7 +212,7 @@ export default defineConfig({
 - ~~Retries~~
 - Sharing of auths
 - Mocking and changing responses (Network)
-- Visual comparision
+- ~~Visual comparision~~
 - ``Video``
-- retry failed tests
+- ~~retry failed tests~~
 - ~~cross browser testing~~
