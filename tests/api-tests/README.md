@@ -93,6 +93,20 @@ Let's first understand the classes involved.
 
 ## 5. Combining API calls and UI steps in a test
 
+There are two ways to create APIRequestContext
+- associated with a `BrowserContext`
+- isolated instance, created via `apiRequest.newContext()`
+
+The main difference is that `APIRequestContext` accessible via `browserContext.request` and `page.request` will populate request's `Cookie` header from the browser context and will automatically update browser cookies if `APIResponse` has `Set-Cookie` header:
+> read more [here]('https://playwright.dev/docs/api-testing') 
+### 5.1 Associated with BrowserContext
+Cookies are shared in this case
+
+check `api-and-ui-combined.spec.ts` test.
+
+### 5.2 New instance of APIRequestContext
+Cokkies won't be shared in this instance.
+
 ```ts
 import { test, APIRequestContext, expect, request } from '@playwright/test'
 import bookingDetails from './test-data/single-booking-details.json'
