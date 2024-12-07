@@ -196,6 +196,9 @@ export default defineConfig({
   },
 });
 ```
+## Global setup and teardown
+
+Refer Playwright documentation [here](https://playwright.dev/docs/test-global-setup-teardown) 
 
 ## Topics to cover
 - ~~Parallel run~~
@@ -208,7 +211,7 @@ export default defineConfig({
 - Accessibility testing
 - Performance testing
 - Mobile Web
-- Parameterised tests
+- ~~Parameterised tests~~
 - ~~Retries~~
 - Sharing of auths
 - Mocking and changing responses (Network)
@@ -216,3 +219,11 @@ export default defineConfig({
 - ``Video``
 - ~~retry failed tests~~
 - ~~cross browser testing~~
+- Re-use authentication between tests and test files
+- project dependencies
+- CLI option
+  - `--last-failed`
+  - `--only-changed`
+- Setup Github actions
+
+

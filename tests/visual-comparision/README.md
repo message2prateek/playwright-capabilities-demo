@@ -19,3 +19,8 @@ test('Input element is rendered correctly', async ({ page }) => {
     await expect(inputElement).toHaveScreenshot('inputElement.png');
 });
 ```
+
+## 3. Further reading
+
+https://www.lambdatest.com/learning-hub/playwright-visual-regression-testing
+
