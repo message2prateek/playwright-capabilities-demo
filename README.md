@@ -1,5 +1,83 @@
 # Playwright Capabilities Demo 🎭
 
+## Why not Cypress
+https://www.bigbinary.com/blog/why-we-switched-from-cypress-to-playwright
+https://mtlynch.io/notes/cypress-vs-playwright/
+https://www.21risk.com/blog/migration-from-cypress-to-playwright-hype-or-great
+
+- Playwright supports running tests in parallel out of the box.
+- Playwright executes tests faster than Cypress.
+- Cypress's semantics aren't intutive to use. 
+  - Cypress chains asynchronous calls into functions that return a value resembling a `Promise` but aren't actual `Promises`. 
+    - This pattern is less common in JavaScript, requiring additional mental effort to adapt and switch between.
+    - This means that we can't use `await` and have to resort to using a `aliase` and `closure` to get a dynamic value from the page e.g. inner text from an element. Each new value will require another nested loop. e.g. suppose our app takes two numbers and returns the sum. 
+       ```javascript
+        // Cypress
+            cy.get('[data-cy="first-number"]').as("firstNumber");
+            cy.get('[data-cy="second-number"]').as("secondNumber");
+            cy.get('[data-cy="sum"]').as("sum");
+
+            // Create aliases to store value and use later
+            cy.get("@firstNumber").invoke("text").then(parseInt).as("num1");
+            cy.get("@secondNumber").invoke("text").then(parseInt).as("num2");
+            cy.get("@sum").invoke("text").then(parseInt).as("displayedSum");
+
+            // Use the aliases to perform the assertion
+            cy.get("@num1").then(num1 => {
+                cy.get("@num2").then(num2 => {
+                    cy.get("@displayedSum").then(displayedSum => {
+                    const expectedSum = num1 + num2;
+                    expect(displayedSum).to.equal(expectedSum);
+                    });
+                });
+            });
+            // using await on the then() will return undefined as it does not return a promise
+        ```
+        ```javascript
+        // Playwright
+            const firstNumber = await page.getByTestId("first-number").innerText();
+            const secondNumber = await page.getByTestId("second-number").innerText();
+            const sum = await page.getByTestId("sum").innerText();
+            expect(parseInt(firstNumber) + parseInt(secondNumber)).toBe(parseInt(sum));
+        ```
+  - Playwright uses consistant assertions
+    - In Cypress assertions are tied to commend like `cy.get()` or `cy.click()` and therefore limiting flexibility when mixing custom logic with assertions.
+    - Playwright uses standard Jest inspired assertions which makes switching between different tests easy e.g. unit tests and UI tests. Cypress 
+        ```javascript
+        // Cypress
+        cy.get('.button').should('be.visible').and('contain', 'Submit');
+        
+        // Playwright
+        await expect(page.locator('.button')).toBeVisible();
+        await expect(page.locator('.button')).toHaveText('Submit');
+        ```
+     - While Cypress offers more choices in how the assertions are written, it can introduce inconsistancy in code. 
+        ```javascript
+            // Example of different assertion styles in Cypress
+            it('can add numbers', () => {
+                expect(add(1, 2)).to.eq(3)
+            })
+
+            it('can subtract numbers', () => {
+                assert.equal(subtract(5, 12), -7, 'these numbers are equal')
+            })
+
+            cy.wrap(add(1, 2)).should('equal', 3)
+        ```
+- Playwright offers role-based locators that prioritize user-facing attributes, making them intuitive, closely aligned with the UI, and highly resilient. These locators are less affected by minor DOM changes, as roles and labels are more stable compared to the structure of the DOM.
+    ```JavaScript
+    // Cypress
+        cy.get('button[type="submit"]'); // CSS selector
+        
+    // Playwright
+        page.getByRole('button', { name: 'Next' }); // Role-based locator
+        ```
+Rerefences
+
+[Why we swithed from Cypress to Playwright](https://www.bigbinary.com/blog/why-we-switched-from-cypress-to-playwright)
+[Cypress vs Playwright](https://mtlynch.io/notes/cypress-vs-playwright/)
+[Migration from Cypress to Playwright Hype or Great](https://www.21risk.com/blog/migration-from-cypress-to-playwright-hype-or-great)
+
 ## How to run the tests
 
 ### 1. Run all the tests
@@ -225,5 +303,6 @@ Refer Playwright documentation [here](https://playwright.dev/docs/test-global-se
   - `--last-failed`
   - `--only-changed`
 - Setup Github actions
-
+- projects
+- ~~Cypress VS Playwright~~
 
