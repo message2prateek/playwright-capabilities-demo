@@ -292,7 +292,7 @@ Refer Playwright documentation [here](https://playwright.dev/docs/test-global-se
 - ~~Parameterised tests~~
 - ~~Retries~~
 - Sharing of auths
-- Mocking and changing responses (Network)
+- ~Mocking and changing responses (Network)~
 - ~~Visual comparision~~
 - ``Video``
 - ~~retry failed tests~~

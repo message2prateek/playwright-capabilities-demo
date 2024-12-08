@@ -1,12 +1,4 @@
-import test, { expect } from "@playwright/test";
-
-test.beforeEach(async ({ page }) => {
-    // ...
-});
-
-test.afterEach(async ({ page }) => {
-    // ...
-});
+import test, { expect } from "@playwright/test"
 
 [
     { name: "Alice", fullName: "Hello, Alice!" },
@@ -15,5 +7,5 @@ test.afterEach(async ({ page }) => {
 ].forEach(({ name, fullName }) => {
     test(`testing with ${name}`, async ({ page }) => {
         expect(fullName).toContain(name);
-    });
-});
+    })
+})

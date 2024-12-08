@@ -142,4 +142,5 @@ test.afterAll(async ({ }) => {
 
 - https://playwright.dev/docs/api-testing
 - https://www.lambdatest.com/learning-hub/playwright-api-testing
-
+- https://playwright.dev/docs/network
+- 
